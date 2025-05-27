@@ -57,3 +57,7 @@ O sistema pode ser facilmente expandido para incluir comandos MQTT para controle
 5- Agora substitua no código na parte // CallMeBot - WhatsApp, com seu numero e key
 
 6- Para fazer o teste execute o wokwi, e mande mensagem para o callmebot "Resume"
+
+
+Pedro 10415546
+Aline 10407405
