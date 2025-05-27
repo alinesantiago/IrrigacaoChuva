@@ -2,35 +2,39 @@
 
 # Descrição do projeto
 
-Este projeto propõe um sistema automatizado e inteligente para captação, armazenamento e utilização da água da chuva na irrigação de forma sustentável. A placa principal utilizada é a ESP8266, responsável pelo controle de toda a automação. Ela se conecta via Wi-Fi a uma rede local, permitindo o monitoramento remoto e o envio de notificações através do Telegram, utilizando o protocolo MQTT com integração ao message broker HiveMQ.
+ste projeto utiliza um ESP32 para gerenciar um sistema de captação e armazenamento de água da chuva, com foco na automação e eficiência. O sistema lê o nível de água em um reservatório e a umidade do solo, acionando automaticamente uma bomba d'água quando necessário. Além disso, envia notificações automáticas via WhatsApp, utilizando a API do CallMeBot, sempre que o sistema executa ações importantes ou detecta situações críticas.
 
-Para integrar sensores e atuadores, é utilizada uma protoboard de 400 pontos, facilitando a prototipagem e a conexão entre os componentes eletrônicos.
+O sistema também é capaz de integrar-se com servidores via protocolo MQTT, permitindo o monitoramento remoto e o envio de alertas quando o nível de água atinge 90% da capacidade, garantindo segurança e eficiência.
 
-O sistema é composto pelos seguintes módulos e funcionalidades:
+🚀 Funcionalidades
+✅ Monitoramento da umidade do solo.
+✅ Medição do nível de água no reservatório.
+✅ Acionamento automático da bomba d'água.
+✅ Envio de notificações via WhatsApp com informações do sistema.
+✅ Comunicação via protocolo MQTT para integração com sistemas remotos.
+✅ Comunicação via Internet (TCP/IP).
 
-Sensor de Nível de Água: utilizado para monitorar o volume armazenado no reservatório de água da chuva. Quando o nível atinge a capacidade máxima, o sistema desativa automaticamente a bomba de captação para evitar transbordamentos.
+🛠️ Software Desenvolvido
+O código foi desenvolvido utilizando a IDE Arduino, com a linguagem C++ e as bibliotecas:
 
-Sensor de Umidade do Solo: responsável por medir a umidade na região irrigada. Quando a umidade atinge um nível abaixo do ideal, o sistema ativa a bomba de irrigação, utilizando a água captada da chuva.
+WiFi.h — para conexão com a internet via rede Wi-Fi.
 
-Display LCD 16x2: exibe informações relevantes como o nível da água no reservatório e o status da irrigação (ativado ou desativado). Também poderá apresentar mensagens de alerta em caso de falhas.
+HTTPClient.h — para realizar requisições HTTP.
 
-Botões Auxiliares: permitem ao usuário administrador configurar parâmetros como o limite mínimo de umidade para iniciar a irrigação, ou forçar manualmente a ativação/desativação do sistema.
+Função urlencode() — para garantir o envio correto das mensagens pela URL.
 
-Buzzer Passivo 5V e LED Indicador: emitem sinais sonoros e visuais para indicar eventos importantes, como a ativação da irrigação ou alertas de nível baixo de água.
+API CallMeBot — serviço gratuito para envio de mensagens via WhatsApp.
 
-A comunicação remota é realizada através do Telegram Bot, permitindo que o usuário receba notificações instantâneas, tais como:
+📂 Estrutura do código:
+setup_wifi() — conecta o ESP32 à rede Wi-Fi.
 
-"Sistema iniciou a irrigação automaticamente às 08:00."
+sendWhatsAppMessage() — envia mensagens via CallMeBot.
 
-"Reservatório atingiu nível máximo de água."
+urlencode() — codifica a mensagem para o formato URL.
 
-"Falha na bomba de irrigação detectada."
+loop() — realiza leituras, controla a bomba e envia notificações a cada 30 segundos.
 
-Além disso, o usuário pode enviar comandos via Telegram para consultar o status do sistema ou forçar a irrigação.
-
-Implementações futuras podem incluir o uso de um Sensor de Chuva, para inibir a irrigação quando estiver chovendo, e um Sensor de Fluxo de Água, para monitorar a quantidade efetiva de água utilizada, promovendo ainda mais eficiência no reaproveitamento dos recursos hídricos.
-
-Este sistema visa promover a economia de água potável e estimular práticas de irrigação sustentáveis, aliando tecnologia IoT e automação residencial.
+O sistema pode ser facilmente expandido para incluir comandos MQTT para controle remoto da bomba ou leituras sob demanda.
 
 
 # Como executar o projeto
