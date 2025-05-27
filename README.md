@@ -2,7 +2,7 @@
 
 # Descrição do projeto
 
-ste projeto utiliza um ESP32 para gerenciar um sistema de captação e armazenamento de água da chuva, com foco na automação e eficiência. O sistema lê o nível de água em um reservatório e a umidade do solo, acionando automaticamente uma bomba d'água quando necessário. Além disso, envia notificações automáticas via WhatsApp, utilizando a API do CallMeBot, sempre que o sistema executa ações importantes ou detecta situações críticas.
+Este projeto utiliza um ESP32 para gerenciar um sistema de captação e armazenamento de água da chuva, com foco na automação e eficiência. O sistema lê o nível de água em um reservatório e a umidade do solo, acionando automaticamente uma bomba d'água quando necessário. Além disso, envia notificações automáticas via WhatsApp, utilizando a API do CallMeBot, sempre que o sistema executa ações importantes ou detecta situações críticas.
 
 O sistema também é capaz de integrar-se com servidores via protocolo MQTT, permitindo o monitoramento remoto e o envio de alertas quando o nível de água atinge 90% da capacidade, garantindo segurança e eficiência.
 
@@ -57,3 +57,29 @@ O sistema pode ser facilmente expandido para incluir comandos MQTT para controle
 5- Agora substitua no código na parte // CallMeBot - WhatsApp, com seu numero e key
 
 6- Para fazer o teste execute o wokwi, e mande mensagem para o callmebot "Resume"
+
+## 🔩 Hardware Utilizado (Simulado no Wokwi)
+
+| Componente                   | Substituto na Simulação Wokwi        | Função Simulada                                |
+|-----------------------------|--------------------------------------|------------------------------------------------|
+| Sensor de umidade do solo   | Potenciômetro                        | Simula variação de umidade no solo             |
+| Bomba d’água                | LED com resistor de 220Ω             | Representa acionamento da bomba                |
+| Sensor de nível HC-SR04     | Sensor ultrassônico (Wokwi nativo)   | Mede a distância até o nível da água           |
+| ESP32 NodeMCU               | ESP32 Dev Board                      | Controlador principal com conectividade Wi-Fi  |
+| Relé 5V                     | Simulado por controle de LED         | Aciona bomba (LED) conforme leitura dos sensores |
+
+## 🌐 Protocolos e Módulos de Comunicação
+
+- **Wi-Fi (TCP/IP)**: conexão do ESP32 à internet.
+- **MQTT (Mosquitto Broker)**: protocolo de mensagens leves para IoT, utilizado para publicar os dados de nível do reservatório.
+- **HTTP (API CallMeBot)**: envio de mensagens via requisições HTTP para o WhatsApp.
+- **PubSubClient**: biblioteca usada para comunicação MQTT no ESP32.
+- **Python Script**: assina o tópico MQTT e interage com a API CallMeBot (no cenário completo com broker externo).
+
+## 📡 Comunicação via Internet e MQTT
+
+- O ESP32 conecta-se a uma rede Wi-Fi e publica mensagens em tópicos MQTT, como nível do reservatório e status de irrigação.
+- Quando a caixa d’água atinge 90% de capacidade, uma mensagem MQTT é publicada.
+- Um servidor local com um script Python assina esse tópico e envia alertas via API CallMeBot para o WhatsApp.
+- Toda a comunicação utiliza o protocolo **TCP/IP**.
+
